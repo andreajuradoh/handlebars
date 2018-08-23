@@ -1,0 +1,31 @@
+{
+  "name": "3.taller_express_handlebar",
+  "version": "1.0.0",
+  "description": "crud classes with nodejs express hbs postgressql knex",
+  "engines": {
+    "node": "8.11.3"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "express-handlebars": "^3.0.0",
+    "express": "^4.15.2"
+  },
+   "devDependencies": {
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prueba/node-jessica"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}
