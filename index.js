@@ -3,6 +3,7 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 
 var exphbs = require('express-handlebars');
+const knex =  require('./db/knex');
 
 var app=express();
 
@@ -11,11 +12,9 @@ app.engine('handlebars',
 
 app.set('view engine', 'handlebars');
 
-app.get('/', (req, res) => res.render('home'));
-
-
-//login
-app.get('/login', (req,res) => res.render('login', {csrf:'abc'}));
+//añadir modules routes
+var routes = require('./routes/index.js');
+//var users = require('./routes/users.js');
 
 
 //body.parser
@@ -29,17 +28,24 @@ app.post('/process', function(req , res){
     
 });
 
-var fortune = require('./lib/fortune');
-
-//Usa modulos de la libreria fortune.js
-app.get('/about',(req,res)=>
-res.render('about', { fortune: fortune.getFortune() })
-);
-
-
 
 //archivos estaticos
 app.use(express.static(path.join(__dirname, '/public')));
+
+
+//llamar routers 
+app.use('/', routes);
+
+app.get('/user', function(req,res){
+   // res.render('show');
+    //consulta db
+    knex('usuarios') //knex en la tabla 'usuarios' -select from
+    .select() //seleccionar 
+    .then( objCollectUsers => { //el resultado lo arroja en la variable usuarios
+         res.render('user/index', {objUsers: objCollectUsers}); //lo manda a renderizar y lo manda a obj user//
+    });
+});
+
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 
